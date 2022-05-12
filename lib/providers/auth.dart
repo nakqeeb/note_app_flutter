@@ -43,9 +43,7 @@ class Auth with ChangeNotifier {
       'password': password,
     };
     print(data);
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/users/signup');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/users/signup');
     try {
       final response = await http.post(url,
           headers: {"Content-type": "application/json"},
@@ -70,9 +68,7 @@ class Auth with ChangeNotifier {
       'password': password,
     };
     // print(data);
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/users/login');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/users/login');
     try {
       final response = await http.post(url,
           headers: {"Content-type": "application/json"},

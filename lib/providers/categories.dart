@@ -29,9 +29,7 @@ class Categories with ChangeNotifier {
   }
 
   Future<void> fetchCategories() async {
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/categories');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/categories');
 
     var response = await http.get(
       url,
@@ -64,9 +62,7 @@ class Categories with ChangeNotifier {
   }
 
   Future<void> addCategory(Category category) async {
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/categories');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/categories');
 
     var response = await http.post(
       url,
@@ -103,9 +99,8 @@ class Categories with ChangeNotifier {
   Future<void> updateCategory(String? catId, Category category) async {
     final categoryIndex = _cats.indexWhere((c) => c.id == catId);
     if (categoryIndex >= 0) {
-      final url = Uri.http(
-          'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-          '/categories/$catId');
+      final url =
+          Uri.http('nodejs-note-app.herokuapp.com', '/categories/$catId');
 
       final response = await http.put(
         url,
@@ -131,9 +126,7 @@ class Categories with ChangeNotifier {
   }
 
   Future<void> deleteCategory(String catId) async {
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/categories/$catId');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/categories/$catId');
     final existingCategoryIndex = _cats.indexWhere((c) => c.id == catId);
     Category? existingCategory = _cats[existingCategoryIndex];
     _cats.removeAt(existingCategoryIndex);

@@ -28,10 +28,8 @@ class Notes with ChangeNotifier {
       'byupdateddate': orderByUpdatedDate
     };
 
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/notes',
-        queryParams);
+    final url =
+        Uri.http('nodejs-note-app.herokuapp.com', '/notes', queryParams);
 
     var response = await http.get(
       url,
@@ -57,9 +55,7 @@ class Notes with ChangeNotifier {
       'byupdateddate': orderByUpdatedDate
     };
     final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/notes/category/$catId',
-        queryParams);
+        'nodejs-note-app.herokuapp.com', '/notes/category/$catId', queryParams);
 
     var response = await http.get(
       url,
@@ -84,9 +80,7 @@ class Notes with ChangeNotifier {
   }
 
   Future<void> addNote(Map<String, Object?> note) async {
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/notes/');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/notes/');
     try {
       final response = await http.post(
         url,
@@ -119,9 +113,7 @@ class Notes with ChangeNotifier {
   Future<void> updateNote(String noteId, Map<String, Object?> note) async {
     final noteIndex = _notes.indexWhere((n) => n.id == noteId);
     if (noteIndex >= 0) {
-      final url = Uri.http(
-          'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-          '/notes/$noteId');
+      final url = Uri.http('nodejs-note-app.herokuapp.com', '/notes/$noteId');
 
       final response = await http.put(
         url,
@@ -147,9 +139,7 @@ class Notes with ChangeNotifier {
   }
 
   Future<void> deleteNote(String noteId) async {
-    final url = Uri.http(
-        'mononotesproapp-env.eba-rmep9tam.us-east-1.elasticbeanstalk.com',
-        '/notes/$noteId');
+    final url = Uri.http('nodejs-note-app.herokuapp.com', '/notes/$noteId');
     final existingNoteIndex = _notes.indexWhere((c) => c.id == noteId);
     Note? existingNote = _notes[existingNoteIndex];
     Future.delayed(const Duration(seconds: 0), () {
