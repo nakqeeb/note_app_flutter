@@ -1,4 +1,4 @@
-package com.yafey.mono_notes_pro
+package com.example.note_app_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
