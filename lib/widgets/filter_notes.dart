@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter/providers/notes.dart';
+import 'package:note_app/notifiers/notes_notifier.dart';
+import 'package:note_app/services/notesService.dart';
 import 'package:provider/provider.dart';
 
 typedef void boolCallback(bool val);
@@ -13,7 +14,7 @@ class FilterNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final noteData = Provider.of<Notes>(context);
+    final notesNotifier = Provider.of<NotesNotifier>(context);
     return PopupMenuButton(
       offset: Offset(100, 50),
       color: Colors.blueGrey[300],
@@ -22,47 +23,47 @@ class FilterNotes extends StatelessWidget {
         print(value);
         callback(true);
         if (value == 'title') {
-          noteData.orderByTitle = '1';
-          noteData.orderByCreatedDate = null;
-          noteData.orderByUpdatedDate = null;
+          notesNotifier.orderByTitle = '1';
+          notesNotifier.orderByCreatedDate = null;
+          notesNotifier.orderByUpdatedDate = null;
           if (categoryId == null) {
-            noteData.fetchNotes().then((_) => callback(false));
+            NotesService.fetchNotes(notesNotifier).then((_) => callback(false));
           } else {
-            noteData
-                .fetchNotesByCategoryId(categoryId as String)
+            NotesService.fetchNotesByCategoryId(
+                    categoryId as String, notesNotifier)
                 .then((_) => callback(false));
           }
         } else if (value == 'createdDate') {
-          noteData.orderByTitle = null;
-          noteData.orderByCreatedDate = '1';
-          noteData.orderByUpdatedDate = null;
+          notesNotifier.orderByTitle = null;
+          notesNotifier.orderByCreatedDate = '1';
+          notesNotifier.orderByUpdatedDate = null;
           if (categoryId == null) {
-            noteData.fetchNotes().then((_) => callback(false));
+            NotesService.fetchNotes(notesNotifier).then((_) => callback(false));
           } else {
-            noteData
-                .fetchNotesByCategoryId(categoryId as String)
+            NotesService.fetchNotesByCategoryId(
+                    categoryId as String, notesNotifier)
                 .then((_) => callback(false));
           }
         } else if (value == 'updatedDate') {
-          noteData.orderByTitle = null;
-          noteData.orderByCreatedDate = null;
-          noteData.orderByUpdatedDate = '1';
+          notesNotifier.orderByTitle = null;
+          notesNotifier.orderByCreatedDate = null;
+          notesNotifier.orderByUpdatedDate = '1';
           if (categoryId == null) {
-            noteData.fetchNotes().then((_) => callback(false));
+            NotesService.fetchNotes(notesNotifier).then((_) => callback(false));
           } else {
-            noteData
-                .fetchNotesByCategoryId(categoryId as String)
+            NotesService.fetchNotesByCategoryId(
+                    categoryId as String, notesNotifier)
                 .then((_) => callback(false));
           }
         } else if (value == 'reset') {
-          noteData.orderByTitle = null;
-          noteData.orderByCreatedDate = null;
-          noteData.orderByUpdatedDate = null;
+          notesNotifier.orderByTitle = null;
+          notesNotifier.orderByCreatedDate = null;
+          notesNotifier.orderByUpdatedDate = null;
           if (categoryId == null) {
-            noteData.fetchNotes().then((_) => callback(false));
+            NotesService.fetchNotes(notesNotifier).then((_) => callback(false));
           } else {
-            noteData
-                .fetchNotesByCategoryId(categoryId as String)
+            NotesService.fetchNotesByCategoryId(
+                    categoryId as String, notesNotifier)
                 .then((_) => callback(false));
           }
         }

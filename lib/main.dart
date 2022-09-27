@@ -2,19 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:note_app_flutter/providers/auth.dart';
-import 'package:note_app_flutter/providers/categories.dart';
-import 'package:note_app_flutter/providers/iconItems.dart';
-import 'package:note_app_flutter/providers/notes.dart';
-import 'package:note_app_flutter/screens/about_us_screen.dart';
-import 'package:note_app_flutter/screens/auth_screen.dart';
-import 'package:note_app_flutter/screens/categories_screen.dart';
-import 'package:note_app_flutter/screens/edit_category_screen.dart';
-import 'package:note_app_flutter/screens/edit_note_screen.dart';
-import 'package:note_app_flutter/screens/note_details_screen.dart';
-import 'package:note_app_flutter/screens/notes_overview_screen.dart';
-import 'package:note_app_flutter/screens/splash_screen.dart';
+import 'package:note_app/notifiers/auth_notifier.dart';
+import 'package:note_app/notifiers/categories_notifier.dart';
+import 'package:note_app/notifiers/notes_notifier.dart';
+import 'package:note_app/services/authService.dart';
 import 'package:provider/provider.dart';
+
+import 'notifiers/iconItems.dart';
+import 'screens/about_us/about_us_screen.dart';
+import 'screens/auth/auth_screen.dart';
+import 'screens/categories/categories_screen.dart';
+import 'screens/edit_note/edit_note_screen.dart';
+import 'screens/note_details/note_details_screen.dart';
+import 'screens/notes_overview/notes_overview_screen.dart';
+import 'screens/splash/splash_screen.dart';
 
 void main() {
   // to prevent the landscape mode
@@ -24,22 +25,23 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => Auth()),
-        ChangeNotifierProxyProvider<Auth, Notes>(
-          create: (_) => Notes(null, null, []),
-          update: (BuildContext ctx, auth, Notes? previousNotes) => Notes(
-              auth.token,
-              auth.userId,
-              previousNotes == null ? [] : previousNotes.notes),
+        ChangeNotifierProvider(create: (_) => AuthNotifier()),
+        ChangeNotifierProxyProvider<AuthNotifier, NotesNotifier>(
+          create: (_) => NotesNotifier(null, []),
+          update: (BuildContext ctx, auth, NotesNotifier? previousNotes) =>
+              NotesNotifier(
+            auth.token,
+            previousNotes == null ? [] : previousNotes.notes,
+          ),
         ),
-        ChangeNotifierProxyProvider<Auth, Categories>(
-          create: (_) => Categories(null, null, [], []),
-          update: (BuildContext ctx, auth, Categories? previousCats) =>
-              Categories(
-                  auth.token,
-                  auth.userId,
-                  previousCats == null ? [] : previousCats.cats,
-                  previousCats == null ? [] : previousCats.dropDownCats),
+        ChangeNotifierProxyProvider<AuthNotifier, CategoriesNotifier>(
+          create: (_) => CategoriesNotifier(null, [], []),
+          update: (BuildContext ctx, auth, CategoriesNotifier? previousCats) =>
+              CategoriesNotifier(
+            auth.token,
+            previousCats == null ? [] : previousCats.cats,
+            previousCats == null ? [] : previousCats.dropDownCats,
+          ),
         ),
         ChangeNotifierProvider(create: (_) => IconItems()),
       ],
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Auth>(
+    return Consumer<AuthNotifier>(
       builder: (ctx, auth, _) => MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
         home: auth.isAuth
             ? NotesOverviewScreen()
             : FutureBuilder(
-                future: auth.tryAutoLogin(),
+                future: AuthService.tryAutoLogin(auth),
                 builder: (ctx, authResultSnapshot) =>
                     authResultSnapshot.connectionState ==
                             ConnectionState.waiting
@@ -76,7 +78,6 @@ class MyApp extends StatelessWidget {
           NoteDetailsScreen.routeName: (ctx) => NoteDetailsScreen(),
           EditNoteScreen.routeName: (ctx) => EditNoteScreen(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
-          EditCategoryScreen.routeName: (ctx) => EditCategoryScreen(),
           AboutUsScreen.routeName: (ctx) => AboutUsScreen(),
         },
       ),

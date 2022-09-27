@@ -1,4 +1,3 @@
-// lecture 253
 class HttpException implements Exception {
   final String message;
 

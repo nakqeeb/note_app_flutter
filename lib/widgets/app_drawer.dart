@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter/providers/auth.dart';
-import 'package:note_app_flutter/screens/about_us_screen.dart';
-import 'package:note_app_flutter/screens/categories_screen.dart';
-import 'package:note_app_flutter/screens/notes_overview_screen.dart';
+import 'package:note_app/notifiers/auth_notifier.dart';
+import 'package:note_app/services/authService.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/about_us/about_us_screen.dart';
+import '../screens/categories/categories_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final username = Provider.of<Auth>(context).username;
+    final authNotifier = Provider.of<AuthNotifier>(context);
     return Drawer(
       child: SingleChildScrollView(
         child: Column(
@@ -72,7 +73,7 @@ class AppDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushReplacementNamed('/');
-                    Provider.of<Auth>(context, listen: false).logout();
+                    AuthService.logout(authNotifier);
                   },
                 ),
               ],

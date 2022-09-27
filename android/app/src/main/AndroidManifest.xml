@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.note_app_flutter">
+    package="com.yafey.mono_notes_pro">
+
+    <!--important to add internet permission so that the app can connect to the internet. In depug mode, you may not need it but in release apk you will need it otherwise the app will not be able to connect to the internet-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
-        android:label="note_app_flutter"
+        android:label="Mono Notes Pro"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

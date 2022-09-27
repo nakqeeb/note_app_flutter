@@ -1,4 +1,4 @@
-import 'package:note_app_flutter/models/creator.dart';
+import 'creator.dart';
 
 class Section {
   final String? id;

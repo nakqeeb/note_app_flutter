@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter/models/category.dart';
-import 'package:note_app_flutter/providers/iconItems.dart';
 import 'package:provider/provider.dart';
+
+import '../models/category.dart';
+import '../notifiers/iconItems.dart';
 
 class CategoriesListView extends StatelessWidget {
   final Category category;
