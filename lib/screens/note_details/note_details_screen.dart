@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:note_app/models/note.dart';
 import 'package:note_app/notifiers/notes_notifier.dart';
@@ -34,6 +35,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = AppLocalizations.of(context);
     final scaffold = ScaffoldMessenger.of(context);
     final notesNotifier = Provider.of<NotesNotifier>(context);
     final mediaQuery = MediaQuery.of(context);
@@ -46,13 +48,13 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                   appBar.preferredSize.height -
                   mediaQuery.padding.top) *
               0.2,
-          padding: const EdgeInsets.only(left: 10, top: 20),
+          padding: const EdgeInsets.only(left: 10, top: 20, right: 10),
           child: Row(
             children: [
               CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 child: IconButton(
-                  tooltip: 'Back',
+                  tooltip: appLocale!.back,
                   onPressed: () => Navigator.of(context).pop('/'),
                   icon: const Icon(
                     Icons.arrow_back,
@@ -79,7 +81,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                 ),
               ),
               IconButton(
-                  tooltip: 'Delete',
+                  tooltip: appLocale.delete,
                   icon: const Icon(Icons.delete),
                   color: Theme.of(context).errorColor,
                   onPressed: () {
@@ -92,18 +94,19 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                           ),
                         ),
                         backgroundColor: Theme.of(context).canvasColor,
-                        title: Text('Delete ${note?.title}'),
-                        content: Text('Do you want to delete ${note?.title}'),
+                        title: Text('${appLocale.delete} ${note?.title}'),
+                        content: Text(
+                            '${appLocale.do_you_want_delete} ${note?.title}'),
                         actions: [
                           TextButton(
-                            child: const Text('No'),
+                            child: Text(appLocale.no),
                             onPressed: () {
                               Navigator.of(ctx).pop();
                             },
                           ),
                           TextButton(
                             child: Text(
-                              'Yes',
+                              appLocale.yes,
                               style: TextStyle(
                                   color: Theme.of(context).errorColor),
                             ),
@@ -120,7 +123,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                               scaffold.showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Deleted successfully',
+                                    appLocale.deleted_successfully,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor),
@@ -147,7 +150,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
                 width: 5,
               ),
               IconButton(
-                tooltip: 'Edit',
+                tooltip: appLocale.edit,
                 icon: const Icon(Icons.edit),
                 onPressed: () async {
                   final response = await Navigator.of(context)

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:note_app/screens/categories/components/edit_category_modal.dart';
 import 'package:note_app/services/categoriesService.dart';
+import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../notifiers/categories_notifier.dart';
@@ -43,6 +45,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = AppLocalizations.of(context);
     final scaffold = ScaffoldMessenger.of(context);
     final categoriesNotifier = Provider.of<CategoriesNotifier>(context);
     final categories = categoriesNotifier.cats;
@@ -53,46 +56,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       key: scaffoldKey,
       drawer: AppDrawer(),
       body: Column(children: [
-        Container(
-          height: (mediaQuery.size.height -
-                  appBar.preferredSize.height -
-                  mediaQuery.padding.top) *
-              0.2,
-          padding: const EdgeInsets.only(left: 10, top: 20),
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                child: IconButton(
-                  tooltip: 'Menu',
-                  onPressed: () => scaffoldKey.currentState!.openDrawer(),
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                ),
-                radius: 30,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                'Mono Notes Pro',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                ),
-              ),
-              const Spacer(),
-            ],
-          ),
-        ),
-        const Padding(
+        CustomAppBar(scaffoldKey: scaffoldKey),
+        Padding(
           padding: EdgeInsets.only(top: 8.0, bottom: 6.0),
           child: Text(
-            "Categories",
+            appLocale!.categories,
             style: TextStyle(
               color: Color(0xff515979),
               fontWeight: FontWeight.w500,
@@ -117,7 +85,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 : categories.length - 1 <= 0
                     ? Center(
                         child: Text(
-                          'No Category has been added yet.',
+                          appLocale.no_category_added,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -173,20 +141,23 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                       ),
                                       backgroundColor:
                                           Theme.of(context).canvasColor,
-                                      title: Text(
-                                          'Delete ${categories[index + 1].name}'),
+                                      title: Text(appLocale.delete +
+                                          ' ${categories[index + 1].name}' +
+                                          appLocale.question_mark),
                                       content: Text(
-                                          'Do you want to delete ${categories[index + 1].name}?'),
+                                          appLocale.do_you_want_delete +
+                                              ' ${categories[index + 1].name}' +
+                                              appLocale.question_mark),
                                       actions: [
                                         TextButton(
-                                          child: const Text('No'),
+                                          child: Text(appLocale.no),
                                           onPressed: () {
                                             Navigator.of(ctx).pop(false);
                                           },
                                         ),
                                         TextButton(
                                           child: Text(
-                                            'Yes',
+                                            appLocale.yes,
                                             style: TextStyle(
                                                 color: Theme.of(context)
                                                     .errorColor),
@@ -226,7 +197,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   scaffold.showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Category deleted',
+                                        appLocale.category_deleted,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color:
@@ -255,12 +226,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                       ),
                                       backgroundColor:
                                           Theme.of(context).canvasColor,
-                                      title: const Text('An error occurred!'),
-                                      content: const Text(
-                                          'Could not delete the category. Try again later.'),
+                                      title: Text(appLocale.error_occurred),
+                                      content: Text(
+                                          appLocale.could_not_delete_category),
                                       actions: [
                                         TextButton(
-                                          child: const Text('Okay'),
+                                          child: Text(appLocale.okay),
                                           onPressed: () {
                                             Navigator.of(ctx).pop();
                                           },
@@ -299,6 +270,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            ),
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
               child: Container(

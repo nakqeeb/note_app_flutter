@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:note_app/notifiers/auth_notifier.dart';
+import 'package:note_app/screens/language/language_screen.dart';
 import 'package:note_app/services/authService.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +11,7 @@ import '../screens/categories/categories_screen.dart';
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appLocale = AppLocalizations.of(context);
     final mediaQuery = MediaQuery.of(context);
     final authNotifier = Provider.of<AuthNotifier>(context);
     return Drawer(
@@ -20,7 +23,7 @@ class AppDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Mono Notes Pro',
+                    appLocale!.mono_notes_pro,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w700,
@@ -31,7 +34,7 @@ class AppDrawer extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    'Welcome',
+                    appLocale.welcome,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -43,7 +46,7 @@ class AppDrawer extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.note),
-                  title: const Text('My notes'),
+                  title: Text(appLocale.my_notes),
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed('/');
                   },
@@ -51,7 +54,7 @@ class AppDrawer extends StatelessWidget {
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.category),
-                  title: const Text('Categories'),
+                  title: Text(appLocale.categories),
                   onTap: () {
                     Navigator.of(context)
                         .pushReplacementNamed(CategoriesScreen.routeName);
@@ -59,8 +62,17 @@ class AppDrawer extends StatelessWidget {
                 ),
                 const Divider(),
                 ListTile(
+                  leading: const Icon(Icons.translate),
+                  title: Text(appLocale.change_langauge),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(LanguageScreen.routeName);
+                  },
+                ),
+                const Divider(),
+                ListTile(
                   leading: const Icon(Icons.info),
-                  title: const Text('About'),
+                  title: Text(appLocale.feedback),
                   onTap: () {
                     Navigator.of(context)
                         .pushReplacementNamed(AboutUsScreen.routeName);
@@ -69,7 +81,7 @@ class AppDrawer extends StatelessWidget {
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.logout),
-                  title: const Text('Logout'),
+                  title: Text(appLocale.logout),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushReplacementNamed('/');

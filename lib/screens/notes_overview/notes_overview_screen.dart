@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:note_app/notifiers/categories_notifier.dart';
 import 'package:note_app/notifiers/notes_notifier.dart';
 import 'package:note_app/services/categoriesService.dart';
 import 'package:note_app/services/notesService.dart';
+import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:animations/animations.dart';
 
@@ -61,60 +65,29 @@ class _NotesOverviewScreenState extends State<NotesOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
+    final appLocale = AppLocalizations.of(context);
     final notesNotifier = Provider.of<NotesNotifier>(context);
     final notes = notesNotifier.notes;
     final cats = Provider.of<CategoriesNotifier>(context).cats;
-    final appBar = AppBar();
     return Scaffold(
       key:
           scaffoldKey, // scaffoldKey for opening a drower from the icon button when we dont want to use an app bar
       drawer: AppDrawer(),
       body: Column(children: [
-        Container(
-          height: (mediaQuery.size.height -
-                  appBar.preferredSize.height -
-                  mediaQuery.padding.top) *
-              0.2,
-          padding: const EdgeInsets.only(left: 10, top: 20),
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                child: IconButton(
-                  tooltip: 'Menu',
-                  onPressed: () => scaffoldKey.currentState!.openDrawer(),
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                ),
-                radius: 30,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                'Mono Notes Pro',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                ),
-              ),
-              const Spacer(),
-              FilterNotes(
-                  categoryId: _categoryId,
-                  callback: (val) => setState(() {
-                        _isNotesLoading = val;
-                      })),
-            ],
-          ),
+        Row(
+          children: [
+            CustomAppBar(scaffoldKey: scaffoldKey),
+            Spacer(),
+            FilterNotes(
+                categoryId: _categoryId,
+                callback: (val) => setState(() {
+                      _isNotesLoading = val;
+                    }))
+          ],
         ),
-        const Text(
-          "Categories",
-          style: TextStyle(
+        Text(
+          appLocale!.categories,
+          style: const TextStyle(
             color: Color(0xff515979),
             fontWeight: FontWeight.w500,
             fontSize: 20,
@@ -172,11 +145,11 @@ class _NotesOverviewScreenState extends State<NotesOverviewScreen> {
                         ),
                       ),
                     ))),
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0, bottom: 6.0),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 6.0),
           child: Text(
-            "Notes",
-            style: TextStyle(
+            appLocale.notes,
+            style: const TextStyle(
               color: Color(0xff515979),
               fontWeight: FontWeight.w500,
               fontSize: 20,
@@ -204,7 +177,7 @@ class _NotesOverviewScreenState extends State<NotesOverviewScreen> {
                     : !_isNotesLoading && notes.isEmpty
                         ? Center(
                             child: Text(
-                              'No notes match with this category. Start adding some.',
+                              appLocale.no_notes_match_with_category,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
@@ -214,47 +187,54 @@ class _NotesOverviewScreenState extends State<NotesOverviewScreen> {
                         : ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             itemCount: notes.length,
-                            itemBuilder: (context, index) => Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                      NoteDetailsScreen.routeName,
-                                      arguments: notes[index].id,
-                                    );
-                                  },
-                                  child: ListTile(
-                                    title: Text(notes[index].title as String),
-                                    subtitle: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Created At: ' +
-                                                //DateFormat('dd/MM/yyyy hh:mm')
-                                                DateFormat('dd/MM/yyyy').format(
-                                                    notes[index].createdAt
-                                                        as DateTime),
-                                          ),
-                                          const SizedBox(
-                                            width: 7,
-                                          ),
-                                          Text(
-                                            'Updated At: ' +
-                                                // DateFormat('dd/MM/yyyy hh:mm')
-                                                DateFormat('dd/MM/yyyy').format(
-                                                    notes[index].updatedAt
-                                                        as DateTime),
-                                          )
-                                        ],
+                            itemBuilder: (context, index) {
+                              var reversedNotes = notes.reversed.toList();
+                              return Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                        NoteDetailsScreen.routeName,
+                                        arguments: reversedNotes[index].id,
+                                      );
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                          reversedNotes[index].title as String),
+                                      subtitle: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              '${appLocale.created_at}: ' +
+                                                  //DateFormat('dd/MM/yyyy hh:mm')
+                                                  DateFormat('dd/MM/yyyy')
+                                                      .format(
+                                                          reversedNotes[index]
+                                                                  .createdAt
+                                                              as DateTime),
+                                            ),
+                                            const SizedBox(
+                                              width: 7,
+                                            ),
+                                            Text(
+                                              '${appLocale.updated_at}: ' +
+                                                  // DateFormat('dd/MM/yyyy hh:mm')
+                                                  DateFormat('dd/MM/yyyy')
+                                                      .format(
+                                                          reversedNotes[index]
+                                                                  .updatedAt
+                                                              as DateTime),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const Divider()
-                              ],
-                            ),
-                          ),
+                                  const Divider()
+                                ],
+                              );
+                            }),
           ),
         ),
       ]),

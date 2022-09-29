@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:note_app/notifiers/notes_notifier.dart';
 import 'package:note_app/services/notesService.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +15,12 @@ class FilterNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = AppLocalizations.of(context);
     final notesNotifier = Provider.of<NotesNotifier>(context);
     return PopupMenuButton(
       offset: Offset(100, 50),
       color: Colors.blueGrey[300],
-      tooltip: 'Filter',
+      tooltip: appLocale!.filter,
       onSelected: (value) {
         print(value);
         callback(true);
@@ -72,21 +74,21 @@ class FilterNotes extends StatelessWidget {
         Icons.filter_alt,
         size: 30,
       ),
-      itemBuilder: (_) => const [
+      itemBuilder: (_) => [
         PopupMenuItem(
-          child: Text('By Title'),
+          child: Text(appLocale.by_title),
           value: 'title',
         ),
         PopupMenuItem(
-          child: Text('By Created Date'),
+          child: Text(appLocale.by_created_date),
           value: 'createdDate',
         ),
         PopupMenuItem(
-          child: Text('By Updated Date'),
+          child: Text(appLocale.by_updated_date),
           value: 'updatedDate',
         ),
         PopupMenuItem(
-          child: Text('Reset'),
+          child: Text(appLocale.reset),
           value: 'reset',
         ),
       ],
