@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:note_app/notifiers/locale_notifier.dart';
 import 'package:note_app/notifiers/notes_notifier.dart';
 import 'package:note_app/services/notesService.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,11 @@ class FilterNotes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLocale = AppLocalizations.of(context);
+    final localeNotifier = Provider.of<LocaleNotifier>(context);
+    final isArabic = localeNotifier.isArabic;
     final notesNotifier = Provider.of<NotesNotifier>(context);
     return PopupMenuButton(
-      offset: Offset(100, 50),
+      offset: isArabic ? Offset(-100, 50) : Offset(100, 50),
       color: Colors.blueGrey[300],
       tooltip: appLocale!.filter,
       onSelected: (value) {
