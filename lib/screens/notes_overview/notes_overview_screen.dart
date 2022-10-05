@@ -1,18 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:note_app/notifiers/categories_notifier.dart';
-import 'package:note_app/notifiers/notes_notifier.dart';
-import 'package:note_app/services/categoriesService.dart';
-import 'package:note_app/services/notesService.dart';
-import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:animations/animations.dart';
 
+import '../../notifiers/categories_notifier.dart';
+import '../../notifiers/notes_notifier.dart';
+import '../../services/categoriesService.dart';
+import '../../services/notesService.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/categories_listview.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/filter_notes.dart';
 import '../edit_note/edit_note_screen.dart';
 import '../note_details/note_details_screen.dart';

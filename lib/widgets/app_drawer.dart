@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app/notifiers/auth_notifier.dart';
-import 'package:note_app/screens/language/language_screen.dart';
-import 'package:note_app/services/authService.dart';
 import 'package:provider/provider.dart';
 
+import '../notifiers/auth_notifier.dart';
 import '../screens/about_us/about_us_screen.dart';
 import '../screens/categories/categories_screen.dart';
+import '../screens/language/language_screen.dart';
+import '../services/authService.dart';
 
 class AppDrawer extends StatelessWidget {
   @override

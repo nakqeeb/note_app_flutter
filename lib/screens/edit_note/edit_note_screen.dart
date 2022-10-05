@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:note_app/services/notesService.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -11,6 +10,7 @@ import '../../models/note.dart';
 import '../../notifiers/categories_notifier.dart';
 import '../../notifiers/iconItems.dart';
 import '../../notifiers/notes_notifier.dart';
+import '../../services/notesService.dart';
 
 class EditNoteScreen extends StatefulWidget {
   static const routeName = '/edit-note';

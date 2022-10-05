@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app/notifiers/locale_notifier.dart';
-import 'package:note_app/notifiers/notes_notifier.dart';
-import 'package:note_app/services/notesService.dart';
 import 'package:provider/provider.dart';
+
+import '../notifiers/locale_notifier.dart';
+import '../notifiers/notes_notifier.dart';
+import '../services/notesService.dart';
 
 typedef void boolCallback(bool val);
 

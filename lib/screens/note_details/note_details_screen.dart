@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:note_app/models/note.dart';
-import 'package:note_app/notifiers/notes_notifier.dart';
-import 'package:note_app/services/notesService.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/note.dart';
+import '../../notifiers/notes_notifier.dart';
+import '../../services/notesService.dart';
 import '../edit_note/edit_note_screen.dart';
 
 class NoteDetailsScreen extends StatefulWidget {

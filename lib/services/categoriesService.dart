@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:note_app/notifiers/categories_notifier.dart';
+
 import '../core/constant/api_routes.dart';
 import '../models/http_exception.dart';
 import '../models/category.dart';
+import '../notifiers/categories_notifier.dart';
 
 class CategoriesService {
   static Future<void> fetchCategories(

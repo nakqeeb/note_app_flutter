@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:note_app/core/constant/api_routes.dart';
-import 'package:note_app/notifiers/auth_notifier.dart';
-import '../models/http_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-/* import 'package:shared_preferences/shared_preferences.dart';
-import '../models/http_exception.dart'; */
+
+import '../core/constant/api_routes.dart';
+import '../models/http_exception.dart';
+import '../notifiers/auth_notifier.dart';
 
 class AuthService {
   static Timer? _authTimer;

@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../widgets/app_drawer.dart';
+import '../../widgets/custom_app_bar.dart';
 
 // from url_launcher package
 String? encodeQueryParameters(Map<String, String> params) {

@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:note_app/notifiers/notes_notifier.dart';
 
 import '../core/constant/api_routes.dart';
 import '../models/http_exception.dart';
 import '../models/note.dart';
+import '../notifiers/notes_notifier.dart';
 
 class NotesService {
   static Future<void> fetchNotes(NotesNotifier notesNotifier) async {

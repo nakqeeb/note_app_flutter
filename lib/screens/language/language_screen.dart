@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app/notifiers/locale_notifier.dart';
-import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../notifiers/locale_notifier.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/custom_app_bar.dart';
 
 class LanguageScreen extends StatelessWidget {
   static const routeName = '/language';

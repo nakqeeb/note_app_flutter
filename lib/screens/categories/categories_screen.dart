@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app/screens/categories/components/edit_category_modal.dart';
-import 'package:note_app/services/categoriesService.dart';
-import 'package:note_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../notifiers/categories_notifier.dart';
 import '../../notifiers/iconItems.dart';
+import '../../services/categoriesService.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/custom_app_bar.dart';
+import 'components/edit_category_modal.dart';
 
 class CategoriesScreen extends StatefulWidget {
   static const routeName = '/categories';
