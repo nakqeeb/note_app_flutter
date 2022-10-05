@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import '../core/constant/api_routes.dart';
 import '../models/http_exception.dart';
-import '../models/note.dart';
+import '../models/note/note.dart';
 import '../notifiers/notes_notifier.dart';
 
 class NotesService {
@@ -28,7 +28,12 @@ class NotesService {
     if (extractedData == null) {
       return;
     }
-    notesNotifier.notes = notesFromJson(extractedData["notes"]);
+    print(extractedData);
+    final List<Note> loadedNotes = [];
+    extractedData['notes'].forEach((noteData) {
+      loadedNotes.add(Note.fromJson(noteData));
+    });
+    notesNotifier.notes = loadedNotes;
   }
 
   static Future<void> fetchNotesByCategoryId(
@@ -53,8 +58,12 @@ class NotesService {
     if (extractedData == null) {
       return;
     }
-
-    notesNotifier.notes = notesFromJson(extractedData["notes"]);
+    print(extractedData);
+    final List<Note> loadedNotes = [];
+    extractedData['notes'].forEach((noteData) {
+      loadedNotes.add(Note.fromJson(noteData));
+    });
+    notesNotifier.notes = loadedNotes;
   }
 
   static Note fetchNoteById(String id, NotesNotifier notesNotifier) {

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../core/constant/api_routes.dart';
 import '../models/http_exception.dart';
-import '../models/category.dart';
+import '../models/category/category.dart';
 import '../notifiers/categories_notifier.dart';
 
 class CategoriesService {
@@ -24,16 +24,19 @@ class CategoriesService {
     if (extractedData == null) {
       return;
     }
-
+    final List<Category> loadedCategories = [];
+    extractedData['categories'].forEach((categoryData) {
+      loadedCategories.add(Category.fromJson(categoryData));
+    });
     categoriesNotifier.cats = [
       Category(
         id: null,
         name: 'All',
       ),
-      ...catsFromJson(extractedData["categories"]),
+      ...loadedCategories,
     ];
 
-    categoriesNotifier.dropDownCats = catsFromJson(extractedData["categories"]);
+    categoriesNotifier.dropDownCats = loadedCategories;
   }
 
   static Category fetchCategoryById(

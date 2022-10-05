@@ -5,8 +5,9 @@ import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../models/category.dart';
-import '../../models/note.dart';
+import '../../models/category/category.dart';
+import '../../models/note/note.dart';
+import '../../models/section/section.dart';
 import '../../notifiers/categories_notifier.dart';
 import '../../notifiers/iconItems.dart';
 import '../../notifiers/notes_notifier.dart';

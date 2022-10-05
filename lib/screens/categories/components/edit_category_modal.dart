@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/IconItem.dart';
-import '../../../models/category.dart';
+import '../../../models/category/category.dart';
 import '../../../notifiers/categories_notifier.dart';
 import '../../../notifiers/iconItems.dart';
 import '../../../services/categoriesService.dart';

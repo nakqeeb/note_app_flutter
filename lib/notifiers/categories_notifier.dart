@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/category.dart';
+import '../models/category/category.dart';
 
 class CategoriesNotifier with ChangeNotifier {
   List<Category> _cats = [

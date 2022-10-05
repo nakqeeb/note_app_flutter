@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/note.dart';
+import '../models/note/note.dart';
 
 class NotesNotifier with ChangeNotifier {
   List<Note> _notes = [];
