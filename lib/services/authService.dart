@@ -18,7 +18,7 @@ class AuthService {
       'password': password,
     };
     print(data);
-    final url = Uri.http(ApiRoutes.base_url, '/users/signup');
+    final url = Uri.https(ApiRoutes.base_url, '/users/signup');
     try {
       final response = await http.post(url,
           headers: {"Content-type": "application/json"},
@@ -42,7 +42,7 @@ class AuthService {
       'password': password,
     };
     // print(data);
-    final url = Uri.http(ApiRoutes.base_url, '/users/login');
+    final url = Uri.https(ApiRoutes.base_url, '/users/login');
     try {
       final response = await http.post(url,
           headers: {"Content-type": "application/json"},

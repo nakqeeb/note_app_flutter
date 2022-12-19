@@ -14,7 +14,7 @@ class NotesService {
       'byupdateddate': notesNotifier.orderByUpdatedDate
     };
 
-    final url = Uri.http(ApiRoutes.base_url, '/notes', queryParams);
+    final url = Uri.https(ApiRoutes.base_url, '/notes', queryParams);
 
     var response = await http.get(
       url,
@@ -39,7 +39,7 @@ class NotesService {
       'byupdateddate': notesNotifier.orderByUpdatedDate
     };
     final url =
-        Uri.http(ApiRoutes.base_url, '/notes/category/$catId', queryParams);
+        Uri.https(ApiRoutes.base_url, '/notes/category/$catId', queryParams);
 
     var response = await http.get(
       url,
@@ -63,7 +63,7 @@ class NotesService {
 
   static Future<void> addNote(
       Map<String, Object?> note, NotesNotifier notesNotifier) async {
-    final url = Uri.http(ApiRoutes.base_url, '/notes/');
+    final url = Uri.https(ApiRoutes.base_url, '/notes/');
     try {
       final response = await http.post(
         url,
@@ -95,7 +95,7 @@ class NotesService {
     final noteIndex = notesNotifier.notes.indexWhere((n) => n.id == noteId);
     try {
       if (noteIndex >= 0) {
-        final url = Uri.http(ApiRoutes.base_url, '/notes/$noteId');
+        final url = Uri.https(ApiRoutes.base_url, '/notes/$noteId');
 
         final response = await http.put(
           url,
@@ -122,7 +122,7 @@ class NotesService {
 
   static Future<void> deleteNote(
       String noteId, NotesNotifier notesNotifier) async {
-    final url = Uri.http(ApiRoutes.base_url, '/notes/$noteId');
+    final url = Uri.https(ApiRoutes.base_url, '/notes/$noteId');
     notesNotifier.deleteNoteFromList(noteId, true);
     final response = await http.delete(
       url,

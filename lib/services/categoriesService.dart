@@ -10,7 +10,7 @@ import '../notifiers/categories_notifier.dart';
 class CategoriesService {
   static Future<void> fetchCategories(
       CategoriesNotifier categoriesNotifier) async {
-    final url = Uri.http(ApiRoutes.base_url, '/categories');
+    final url = Uri.https(ApiRoutes.base_url, '/categories');
 
     var response = await http.get(
       url,
@@ -43,7 +43,7 @@ class CategoriesService {
 
   static Future<void> addCategory(
       Category category, CategoriesNotifier categoriesNotifier) async {
-    final url = Uri.http(ApiRoutes.base_url, '/categories');
+    final url = Uri.https(ApiRoutes.base_url, '/categories');
 
     var response = await http.post(
       url,
@@ -79,7 +79,7 @@ class CategoriesService {
     final categoryIndex =
         categoriesNotifier.cats.indexWhere((c) => c.id == catId);
     if (categoryIndex >= 0) {
-      final url = Uri.http(ApiRoutes.base_url, '/categories/$catId');
+      final url = Uri.https(ApiRoutes.base_url, '/categories/$catId');
 
       final response = await http.put(
         url,
@@ -103,7 +103,7 @@ class CategoriesService {
 
   static Future<void> deleteCategory(
       String catId, CategoriesNotifier categoriesNotifier) async {
-    final url = Uri.http(ApiRoutes.base_url, '/categories/$catId');
+    final url = Uri.https(ApiRoutes.base_url, '/categories/$catId');
     categoriesNotifier.deleteCategoryFromList(catId, true);
     final response = await http.delete(
       url,
